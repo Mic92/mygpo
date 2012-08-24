@@ -13,8 +13,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        path = os.path.join(settings.BASE_DIR, '..', 'couchdb', '_design')
-        db = Podcast.get_db()
-        loader = FileSystemDocsLoader(path)
-        loader.sync(db, verbose=True)
+        for part in ('general', 'user'):
+            path = os.path.join(settings.BASE_DIR, '..', 'couchdb', part, '_design')
+            db = Podcast.get_db()
+            loader = FileSystemDocsLoader(path)
+            loader.sync(db, verbose=True)
 
